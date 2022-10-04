@@ -18,10 +18,11 @@ DoVat *docFile(float *W, int *n)
     int i=0;
     while (!feof(f))
     {
-        fscanf(f,"%f%f[^\n]",&dsdv[i].TL,&dsdv[i].GT,&dsdv[i].tenDV);dsdv[ỉ].DG = dsdv[i].GT/dsdv.TL; // Đơn giá
+        fscanf(f,"%f%f[^\n]",&dsdv[i].TL,&dsdv[i].GT,&dsdv[i].tenDV);
+        dsdv[i].DG = dsdv[i].GT/dsdv[i].TL; // Đơn giá
         dsdv[i].soDVDuocChon=0;
         i++;
-        dsdv = realloc (dsdv,sizeof(DoVat)*(i+1));  // Tăng kích thước đồ vật (Cấp phát)
+        dsdv =(DoVat *) realloc (dsdv,sizeof(DoVat)*(i+1));  // Tăng kích thước đồ vật (Cấp phát)
     }
     *n=i;   // Số lượng đồ vật
     fclose(f);
@@ -29,7 +30,7 @@ DoVat *docFile(float *W, int *n)
 }
 void swap(DoVat *x, DoVat *y)
 {
-    DoVat temp = 0;
+    DoVat temp ;
     temp = *x; 
     *x = *y;
     *y = temp;
@@ -43,7 +44,7 @@ void BubbleSort(DoVat *dsdv, int n)
         {
             if (dsdv[j].DG > dsdv[j-1].DG)
             {
-                swap(&dsdv[j],dsdv[j-1]);
+                swap(&dsdv[j],&dsdv[j-1]);
             }
         }
     }
@@ -58,7 +59,7 @@ void outputDSDV (DoVat *dsdv, int n, float W)
     printf("|---|----------------|---------|---------|---------|-----------------|\n");
     for (int i = 0; i < n; i++)
     {
-        printf("|%-3d|%-20s|%9.2f|%9.2f|%9.2f|%8d       |\n",i+1,dsdv[ỉ].tenDV,dsdv[i].TL,dsdv[i].GT,dsdv[i].DG,dsdv[i].soDVDuocChon);
+        printf("|%-3d|%-20s|%9.2f|%9.2f|%9.2f|%8d       |\n",i+1,dsdv[i].tenDV,dsdv[i].TL,dsdv[i].GT,dsdv[i].DG,dsdv[i].soDVDuocChon);
         tongTL=tongTL+dsdv[i].soDVDuocChon * dsdv[i].TL;
         tongGT=tongGT+dsdv[i].soDVDuocChon * dsdv[i].GT;
         printf("|---|----------------|---------|---------|---------|-----------------|\n");
@@ -75,7 +76,7 @@ void greedy(DoVat *dsdv, int n, float W)
         W = W - dsdv[i].soDVDuocChon * dsdv[i].TL;    
     }
 }
-int int main() {
+int main() {
     int n;
     float W;
     DoVat *dsdv;
