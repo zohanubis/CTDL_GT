@@ -90,9 +90,9 @@ void select(float a[][50], int n, int m ,float w)
     float b[MAX][MAX];
     int count = 0;
     printf("\nLoai do vat\tTrong Luong\tGia Tri\tSo Luong CL\tDon Gia\tSo Luong Lay\tW con lai :\n");
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) 
     {
-        temp = a[i][3];
+        temp = a[i][3]; // giữ số lượng ban đầu để phía sau trừ cái lượng lấy đi
         while (w < (a[i][1] * a[i][3]))
         {
             a[i][3]--;
@@ -109,7 +109,7 @@ void select(float a[][50], int n, int m ,float w)
             a[i][5] = a[i][3];
             a[i][3] = temp - a[i][3];
         }
-        if (w == 0)
+        if (w == 0)     // Phần dừng
         {
             break;
         }
@@ -126,7 +126,7 @@ void select(float a[][50], int n, int m ,float w)
     printf("\nDo Vat Lay \tSo Luong \tTong TL \tTong GT\n");
     for (int i = 0; i < count; i++)
     {
-        for (int j = 0; j < 2; j++)
+        for (int j = 0; j < 2; j++)     // 2 chưa tối ưu, cần biến đếm
         {
             printf("%.2f\t\t",b[i][j]);
         }
