@@ -83,6 +83,7 @@ void sortTable(float a[][MAX], int n, int m, float w)
         }
     }
 }
+
 void select(float a[][50], int n, int m ,float w)
 {
     m += 2;
