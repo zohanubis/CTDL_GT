@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "conio.h"
-
+#include "stdlib.h"
+#include "time.h"
 struct Node
 {
     int info;
@@ -28,6 +29,7 @@ Node *createNode(int x)
 void menu();
 void createList(Slist &l, int n);
 void printList(Slist l);
+void createAutoSlist(Slist &l);
 void addHeadSlist(Slist &l, Node *p);
 void addTailSlist(Slist &l, Node *p);
 void addAfterNodeSlist(Slist &l, Node *p);
@@ -137,7 +139,22 @@ void printList(Slist l)
         l.head = l.head -> next;
     }
 }
-
+/*void createAutoSlist(Slist &l)
+{
+    int n,x;
+    initSlist(l);
+    do
+    {
+        printf("Cho biet so phan tu cua danh sach ( n> 0) : "); scanf("%d",&n);
+    } while (n <= 0);
+    srand(time(NULL));
+    for (int i = 1; i <= n; i++)
+    {
+        x =(rand() %199)-99;
+        Node *p = createNode(x);
+        addTailSList(l,p);
+    }
+}*/
 void addHeadSlist(Slist &l, Node *p)
 {
     if (p == NULL)
@@ -176,6 +193,4 @@ void addTailSList(Slist &l, Node *p)
             l.tail = p;
         }
     }
-    
-    
 }
