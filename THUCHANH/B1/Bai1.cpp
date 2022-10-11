@@ -59,7 +59,24 @@ void addTailSlist(Slist &l, Node *p)
         }
     }
 }
+int findFistEvenElenmetsInSlist(Slist l)
+{
+    Node *temp = l.head;
+    while (temp)
+    {
+        if(temp -> info % 2 == 0)
+            return temp -> info;
+        temp = temp -> next;
+    }
+}
 
 void deleteEvenInSList(Slist &l)
 {
+    Node *even = findFistEvenElenmetsInSlist(l);
+   if (l.head == NULL || even == NULL)
+   {
+    /* code */
+   }
+   
+    
 }
