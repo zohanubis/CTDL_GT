@@ -30,8 +30,8 @@ void addTailSlist(Slist &l, Node *p);
 void createAutoList(Slist &l);
 void printList(Slist &l);
 int addBeforeNode(Slist &l, Node *q, Node *p);
-void deleteHeadSlist(Slist &l, Node *p);
-void deleteTailSlist(Slist &l, Node *p);
+void deleteHeadSlist(Slist &l);
+void deleteTailSlist(Slist &l);
 void deleteAfterNode(Slist &l, Node *q);
 void deleteNodeGreaterThanX(Slist &l, int x);
 void deleteEvenNode(Slist &l);
@@ -106,6 +106,46 @@ void menu(){
 				printList(l);
 				break;
 			}
+            case 5:
+            {
+                sortIncrease(l); 
+                printf("\n\tSlist sau khi sap xep tang : ");
+                printList(l);
+                sortDecrease(l);
+                printf("\n\tSlist sau khi sap xep giam : ");
+                printList(l);
+                break;
+            }
+            case 6:{
+				printf("\n\tSo luong so nguyen to trong danh sach la: %d",countPrimNumberInSlist(l));
+				break;
+			}
+			case 7:{
+				printf("\n\tTong so chinh phuong trong danh sach la: %d",computeSumSquareNumberInSList(l));
+				break;
+			}
+			case 8:{
+				printf("\n\tPhan tu lon nhat trong danh sach la: %d",findMaxInSlist(l));
+				printf("\n\tPhan tu nho nhat trong danh sach la: %d",findMinInSlist(l));
+				break;
+			}
+			case 9:{
+				printf("\n\tSo luong phan tu lon hon gap doi phan tu phia sau no la: %d",countNodeGreaterThanDoubleAfterNode(l));
+				break;
+			}
+            case 10:
+            {
+                Slist l1;
+                Slist l2;
+                initSlist(l1);
+                initSlist(l2);
+                splitSlistIntoEvenListAndOddList(l,l1,l2);
+                printf("\n\tSlist 1 : ");
+                printList(l1);
+                printf("\n\tSlist 2 : ");
+                printList(l2);
+                break;
+            }
         default:
             break;
         }
@@ -202,7 +242,7 @@ int addBeforeNode(Slist &l, Node *q, Node *p)
         }
     }
 }
-void deleteHeadSlist(Slist &l, Node *p)
+void deleteHeadSlist(Slist &l)
 {
     if (l.head == NULL)
     {
@@ -217,7 +257,7 @@ void deleteHeadSlist(Slist &l, Node *p)
         delete temp;
     }
 }
-void deleteTailSlist(Slist &l, Node *p)
+void deleteTailSlist(Slist &l)
 {
     if (l.head == NULL)
     {
@@ -230,14 +270,253 @@ void deleteTailSlist(Slist &l, Node *p)
     }
     
 }
-void deleteAfterNode(Slist &l, Node *q);
-void deleteNodeGreaterThanX(Slist &l, int x);
-void deleteEvenNode(Slist &l);
-void sortIncrease(Slist &l);
-void sortDecrease(Slist &l);
-int countPrimNumberInSlist(Slist l);
-int computeSumSquareNumberInSList(Slist l);
-int findMaxInSlist(Slist l);
-int findMinInSlist(Slist l);
-int countNodeGreaterThanDoubleAfterNode(Slist &l);
-void splitSlistIntoEvenListAndOddList(Slist l,Slist &l1,Slist &l2);
+void deleteAfterNode(Slist &l, Node *q){
+    int temp = q -> info;
+    q = l.head;
+    while (q != NULL && q -> info != temp )
+    {
+        q = q -> next;
+    }
+    if (q == NULL || l.head == NULL)
+    {
+        return;
+    }
+    else
+    {
+        if (q -> next = l.tail)
+        {
+            deleteTailSlist(l);
+        }
+        else{
+            Node *temp = q -> next;
+            q -> next = temp -> next;
+            temp -> next = NULL;
+            delete temp;
+        }
+    }
+}
+void deleteNodeGreaterThanX(Slist &l, int x){
+    if (l.head -> info > x)
+    {
+        deleteHeadSlist(l);
+    }
+    int flag = 1;
+    Node *temp = l.head;
+    while (temp -> next != NULL)
+    {
+        if(temp -> next -> info > x)
+        {
+            deleteAfterNode(l,temp);
+            continue;
+        }
+        temp = temp -> next;
+    }
+}
+void deleteEvenNode(Slist &l)
+{
+    if (l.head -> info % 2 == 0)
+    {
+        deleteHeadSlist(l);
+    }
+    int flag = 1;
+    Node *temp = l.head;
+    while (temp -> next != NULL)
+    {
+        if(temp -> next -> info % 2 == 0 )
+        {
+            deleteAfterNode(l,temp);
+            continue;
+        }
+        temp = temp -> next;
+    }
+}
+void sortIncrease(Slist &l){
+    for (Node* i = l.head; i != NULL; i = i -> next)
+    {
+        for(Node *j = i -> next ; j != NULL ; j = j -> next)
+        {
+            if (i -> info < j -> info)
+            {
+                int temp = i -> info;
+                i -> info = j -> info;
+                j -> info = temp;
+            } 
+        }
+    }
+}
+void sortDecrease(Slist &l)
+{
+    for(Node *i = l.head; i != NULL ; i = i -> next)
+    {
+        for(Node *j = i -> next ; j != NULL ; j = j -> next)
+        {
+            if (i -> info < j -> info)
+            {
+                int temp = i -> info;
+                i -> info = j -> info;
+                j -> info = temp;
+            }
+        }
+    }
+}
+int checkPrimNuber(int n)
+{
+    int count = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            count++;
+        }
+    }
+    if (count == 2)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+int countPrimNumberInSlist(Slist l){
+    Node *temp = l.head;
+    int count = 0;
+    while(temp != NULL)
+    {
+        if (checkPrimNuber(temp -> info ) == 1)
+        {
+            count++;
+        }
+        temp = temp -> next;
+    }
+}
+int checkSquareNumber(int n)
+{
+    for (int i = 1; i <= n/2; i++)
+    {
+        if (i * i == n)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+int computeSumSquareNumberInSList(Slist l)
+{
+    Node *temp = l.head;
+    int sum = 0;
+    while (temp != NULL)
+    {
+        if (checkSquareNumber(temp -> info) == 1)
+        {
+            sum += temp -> info;
+        }
+        temp = temp -> next;
+    }
+    return sum;
+}
+int findMaxInSlist(Slist l)
+{
+    Node *temp = l.head;
+    int max = temp -> info;
+    temp = temp -> next;
+    while (temp != NULL)
+    {
+        if(temp -> info > max)
+        {
+            max = temp -> info;
+        }
+        temp = temp -> next;
+    }
+    return max;
+}
+int findMinInSlist(Slist l)
+{
+    Node *temp = l.head;
+    int min = temp -> info;
+    temp = temp -> next;
+    while (temp != NULL)
+    {
+        if(temp -> info < min)
+        {
+            min = temp -> info;
+        }
+        temp = temp -> next;
+    }
+    return min;
+}
+int countNodeGreaterThanDoubleAfterNode(Slist &l)
+{
+    int count = 0;
+    Node *temp = l.head;
+    while (temp -> next != NULL)
+    {
+        if (temp -> info > temp -> next -> info * 2)
+        {
+            count++;
+        }
+        temp = temp -> next;
+    }
+    return count;
+}
+int countEvenNumberInSlist (Slist l)
+{
+    Node *temp = l.head;
+    int count = 0;
+    while (temp != NULL)
+    {
+        if(temp -> info % 2 == 0)
+        {
+            count ++;
+        }
+        temp = temp -> next;
+    }
+    return count;
+}
+int countOddNumberInSlist (Slist l)
+{
+    Node *temp = l.head;
+    int count = 0;
+    while (temp != NULL)
+    {
+        if(temp -> info % 2 != 0)
+        {
+            count ++;
+        }
+        temp = temp -> next;
+    }
+    return count;
+}
+void splitSlistIntoEvenListAndOddList(Slist l,Slist &l1,Slist &l2)
+{
+    int evenNumberInSlist = countEvenNumberInSlist(l);
+    int oddNumberInSlist = countOddNumberInSlist(l);
+    int countEven = 0;
+    int countOdd = 0;
+    Node *temp = new Node;
+    Node *temp2 = new Node;
+    
+    for(Node *i = l.head; i != NULL ; i = i -> next)
+    {
+        if (i ->info % 2 == 0)
+        {
+            countEven++;
+            if (countEven == evenNumberInSlist)
+            {
+                temp = i;
+            }
+            addTailSlist(l,i);
+        }
+        if (i -> info % 2 != 0)
+        {
+            countOdd++;
+            if (countOdd == oddNumberInSlist)
+            {
+                temp2 = i;
+            }
+            addTailSlist(l,i);
+        }
+        temp -> next == NULL;
+        temp2 -> next = NULL;
+    }
+}
