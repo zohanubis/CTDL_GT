@@ -1,214 +1,245 @@
 #include "stdio.h"
 #include "stdlib.h"
-struct Book
-{
+
+struct Book{
     char ma[11];
-    char tenSach[31];
-    int soTrang, nsx;
-    float gia;
-}; 
+    char ten[31];
+    int soTrang;
+    float giaBan;
+    int namXB;
+};
+void output1Book(Book x)
+{
+    printf("%-10s%-20s%10d%10.2f%10d\n", x.ma, x.ten, x.soTrang, x.giaBan,x.namXB);
+
+}
+void doc1Book(FILE* fp, Book& x)
+{
+    fscanf(fp,"%s%s%d%f%d", &x.ma, &x.ten, &x.soTrang, &x.giaBan,&x.namXB);
+}
+void xuatTieuDe()
+{
+printf("%-10s%-20s%10s%10s%10s\n", "MaSach", "TenSach", "SoTrang","GiaBan", "NamXB");
+}
+
 struct Node
 {
-    Book info;
-    Node *next;
+    Book data;
+    Node* next;
 };
-struct SList
+struct List
 {
-    Node *head;
-    Node *tail;
+    Node* head;
+    Node* tail;
 };
-Node *createNode(Book x){
-	Node *p = new Node;
-	if(p == NULL){
-		printf("Khong du bo nho de cap phat!");
-		return NULL;
-	}
-	p->info = x;
-	p->next = NULL;
-}
-Book x;
-void menu();
-void initSList(SList &sl){
-	sl.head = sl.tail = NULL;
-}
-bool isEmpty(SList sl)
-{
-    return sl.head = NULL;
-}
-void addHeadSList(SList &sl, Node *p){
-	if(p == NULL){
-		return;
-	}
-	if(sl.head == NULL){
-		sl.head = sl.tail = p;
-	}else{
-		p->next = sl.head;
-		sl.head = p;
-	}
-}
-void addTailSList(SList &sl, Node *p){
-	if(p == NULL){
-		return;
-	}
-	if(sl.head == NULL){
-		sl.head = sl.tail = p;
-	}else{
-		sl.tail->next = p;
-		sl.tail = p;
-	}
-}
-void inpurListFromFle(SList &sl, char fileName[])
-{
-    FILE *f = fopen("cuonsach.txt" ,"rt");
-    if (f != NULL)
-    {
-        int n;
-        fscanf(f,"%d",&n);
-        Book x;
-        for (int i = 0; i < n; i++)
-        {
-            readBook(f,x);
-            addTailSList(sl,createNode(x));
-        }
-        fclose(f);
-    }
-}
-void traverse(SList sl)
-{
-    outputTitle();
-    Node *p = sl.head;
 
-    while (p != NULL)
+void init(List& list)
+{
+    list.head = list.tail = NULL;
+}
+
+bool isEmpty(List list)
+{
+    return list.head == NULL;
+}
+
+Node* createNode(Book newData)
+{
+    Node* p = new Node;
+    if (p != NULL)
     {
-        outputBook(p -> info);
-        p = p -> next;
+    p->data = newData;
+    p->next = NULL;
     }
+    return p;
 }
-void outputBook (Book x) // 1 cuon
+
+void addHead(List& list, Node* pNew)
 {
-    printf("%-10s%-20s%10d%10.2f%10d\n",x.ma,x.tenSach,x.soTrang,x.gia,x.nsx);
-}
-void readBook(FILE *fp,Book &x){
-    fscanf(fp,"%s%s%d%f%d",&x.ma,&x.tenSach,&x.soTrang,&x.gia,&x.nsx);
-}
-void outputTitle()
-{
-    printf("%-10s%-20s%10s%10s%10s\n",x.ma,x.tenSach,x.soTrang,x.gia,x.nsx);
-}
-void deleleSList(SList &sl)
-{
-    Node *p;
-    while (!isEmpty(sl))
+    if (isEmpty(list))
     {
-        p = sl.head;
-        sl.head = p -> next;
-        delete p;
-    }
-    sl.head = sl.tail = NULL;
-}
-bool isThoaDkCau4(Book x)
-{
-    return x.soTrang > 500 && x.nsx < 2018;
-}
-int countBook(SList sl)
-{
-    int count = 0;
-    Node *p = sl.head;
-    while (p != NULL)
-    {
-        if(isThoaDkCau4(p -> info))
-        {
-            count++;
-            p = p -> next;
-        }
-        return count;
-    }
-}
-bool isThoaDKCau5(Book x)
-{
-    return x.gia > 100000;
-}
-void deleteHeadSList(SList &sl){
-	if(sl.head == NULL){
-		printf("\n\tKhong co phan tu de xoa!");
-		return;
-	}else{
-		Node *temp = sl.head;
-		sl.head = sl.head->next;
-		temp->next = NULL;
-		delete temp;
-	}
-}
-void deleteTailSList(SList &sl){
-	if(sl.head == NULL){
-		printf("\n\tKhong co phan tu de xoa!");
-		return;
-	}else{
-		Node *temp = sl.tail;
-		Node *temp2 = sl.head;
-		while(temp2->next != sl.tail){
-			temp2 = temp2->next;
-		}
-		temp2->next = NULL;
-		sl.tail = temp2;
-		delete temp;
-	}
-}
-void deleteAfterNode(SList &sl, Node *q){
-	int temp = q->info;
-	q = sl.head;
-	while(q != NULL && q->info != temp){
-		q = q->next;
-	}
-	if(q == NULL || sl.head == NULL){
-		return;
-	}else{
-		if(q->next == sl.tail){
-			deleteTailSList(sl);
-		}else{
-			Node *temp = q->next;
-			q->next = temp->next;
-			temp->next = NULL;
-			delete temp;
-		}
-	}
-}
-void xoaSachThoaDk(SList &sl)
-{
-    if (isEmpty(sl))
-    {
-        return;
+        list.head = list.tail = pNew;
     }
     else
     {
-        while (isThoaDkCau5(sl.head ->info))
+        pNew->next = list.head;
+        list.head = pNew;
+    }
+}
+
+void addTail(List& list, Node* pNew)
+{
+    if (isEmpty(list))
+    {
+        list.head = list.tail = pNew;
+    }
+    else
+    {
+        list.tail->next = pNew;
+        list.tail = pNew;
+    }
+}
+void inputListFromFile(List& list,char fileName[])
+{
+    FILE* fp = fopen(fileName, "rt"); //r: read, t: text
+    if (fp != NULL)
+    {
+        int n;
+        fscanf(fp, "%d", &n);
+        Book x;
+        for (int i = 0; i < n; i++)
         {
-            deleteHeadSList(sl);
+        doc1Book(fp, x);
+        addTail(list, createNode(x));
         }
-        Node *q = sl.head;
-        while (q -> next != NULL)
+    fclose(fp);
+    }
+}
+void traverse(List list)
+{
+    xuatTieuDe();
+    Node *p = list.head;
+    while (p != NULL)
+    {
+        output1Book(p -> data);
+        p = p -> next;
+    }
+}
+
+void deleteList(List& list)
+{
+    Node* p;
+    while (!isEmpty(list))
+    {
+        p = list.head;
+        list.head = p->next;
+        delete p;
+    }
+    list.head = list.tail = NULL;
+}
+bool isThoaDKCau4(Book x)
+{
+	return x.soTrang > 500 && x.namXB < 2018;
+}
+int demSach(List list)
+{
+	int dem = 0;
+	Node* p = list.head;
+	while (p != NULL)
+	{
+		if (isThoaDKCau4(p->data))
+		dem++;
+	p = p->next;
+		}
+	return dem;
+}
+bool isThoaDKCau5(Book x)
+
+{
+	return x.giaBan > 100000;
+}
+void removeHead(List& list)
+	{
+		if (isEmpty(list)) return;
+		else
+		{
+		Node* p = list.head;
+		list.head = p->next;
+		if (list.head == NULL)
+		list.tail = NULL;
+		delete p;
+		}	
+}
+void removeAfter(List& list, Node* q)
+{
+    if (isEmpty(list) || q == NULL || q->next == NULL) return;
+    else
+    {
+    Node * p = q->next;
+    q->next = p->next;
+    if (list.tail == p)
+    list.tail = q;
+    delete p;
+	}
+}
+void xoaSachThoaDK(List& list)
+{
+    if (isEmpty(list)) 
+        return;
+    else
+    {
+        while (isThoaDKCau5(list.head->data))
+            removeHead(list);
+        Node* q = list.head;
+        while (q->next != NULL)
         {
-            if(isThoaDKCau5(q -> next -> info)){
-                deleteAfterNode(sl,q);
-            }
+            if (isThoaDKCau5(q->next->data))
+                removeAfter(list, q);
             else
-            {
-                q = q -> next;
-            }
+            q = q->next;
         }
     }
 }
-void main()
+void chenXTruocY(List &list, Node *q , Node *p)
 {
-    SList sl;
-    initSList(sl);
-    inpurListFromFle(sl,"cuonsach.txt");
-    traverse(sl);
-    int count = countBook(sl);
-    printf("So sach thoa dk : %d ",count);
-    printf("Sau khi xoa : \n");
-    xoaSachThoaDk(sl);
-    traverse(sl);
-    deleleSList(sl);
-    system("pause");
+    if (list.head == p)
+    {
+        addHead(list,q);
+    }
+    else
+    {
+        Node *temp = list.head;
+        while (temp -> next != p)
+        {
+            temp = temp -> next;
+        }
+        temp -> next = q;
+        q -> next = p;
+    }
+    
+}
+void them1Book(Book &x)
+{
+    printf("\n\tNhap sach : ");
+    scanf("%s%s%d%f%d",&x.ma,&x.ten,&x.soTrang,&x.giaBan,&x.namXB);
+}
+bool isThoaDKCau6(Book x)
+{
+    return x.giaBan < 50000;
+}
+void addBook(List &list)
+{
+    Book x;
+    them1Book(x);
+    int count = 0;
+    for(Node *p = list.head; p != NULL; p = p -> next)
+    {
+        if (isThoaDKCau6(p-> data))
+        {
+        	Node *B = createNode(x);
+            chenXTruocY(list,B,p);
+            count++;
+        }
+    }
+    if (count == 0)
+    {
+        printf("Khong tim thay !");
+    }
+}
+int main()
+{
+	List list;
+	init(list);
+	inputListFromFile(list, "cuonsach.txt");
+	traverse(list);
+	int dem = demSach(list);
+	printf("So sach thoa dk: %d", dem);
+	printf("\n\tSau khi xoa: \n");
+	xoaSachThoaDK(list);
+	traverse(list);
+	
+	addBook(list);
+    traverse(list);
+    //deleteList(list);
+	//system("pause");
 }
