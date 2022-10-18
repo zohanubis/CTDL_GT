@@ -182,9 +182,9 @@ void xoaSachThoaDK(List& list)
 }
 void chenXTruocY(List &list, Node *q , Node *p)
 {
-    if (list.head == q)
+    if (list.head == p)
     {
-        addHead(list,p);
+        addHead(list,q);
     }
     else
     {
@@ -211,20 +211,19 @@ void addBook(List &list)
 {
     Book x;
     them1Book(x);
-    Node *B = createNode(x);
     int count = 0;
     for(Node *p = list.head; p != NULL; p = p -> next)
     {
-        if (isThoaDKCau6(p->data))
+        if (isThoaDKCau6(p-> data))
         {
+        	Node *B = createNode(x);
             chenXTruocY(list,B,p);
             count++;
         }
-        if (count == 0)
-        {
-            printf("Khong tim thay !");
-        }
-        
+    }
+    if (count == 0)
+    {
+        printf("Khong tim thay !");
     }
 }
 int main()
@@ -241,6 +240,6 @@ int main()
 	
 	addBook(list);
     traverse(list);
-    deleteList(list);
-	system("pause");
+    //deleteList(list);
+	//system("pause");
 }
