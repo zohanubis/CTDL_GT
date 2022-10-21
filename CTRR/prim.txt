@@ -1,0 +1,19 @@
+prim(u){
+        Bước 1 : Khởi tạo;
+        V(MST)= {u};// Thêm đỉnh u vào tập đỉnh của cây khung nhỏ nhất
+        V = V{u};// Loại đỉnh u khỏi tập đỉnh ban đầu
+        MST = Ø;// Cây khung ban đầu rỗng
+        d = 0; // Chiều dài ban đầu của cây khung = 0
+
+        Bước 2 : Lặp
+        while (v != 0)
+        {
+            e = (x,y): Cạnh ngắn nhất có x thuộc V và y thuộc V(MST)
+            MST = MST U e; // thêm cạnh e vào cây khung
+            d = d + d(e);// thêm chiều dài cạnh e vào độ dài cây khung
+            V(MST) = V(MST) U {x}; // Thêm đỉnh x vào tập đỉnh cây khung
+            V = V{x}; // Xóa đỉnh x khỏi tập đỉnh ban đầu
+        }
+        Bước 3 : Trả về kết quả
+        "Trả về độ dài d và cây khung MST"
+}
