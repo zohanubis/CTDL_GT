@@ -32,7 +32,7 @@ void infixToPrefix(char infix[], char prefix[]);
     // Main 
 int main()
 {
-    char infix[MAX] = "(A-B/C)*(A/K-L)";
+    char infix[MAX] = "(P+(Q*R)/(S-T))";
     char prefix[MAX];
 
     infixToPrefix(infix, prefix);
