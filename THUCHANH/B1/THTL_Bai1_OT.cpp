@@ -54,7 +54,7 @@ void menu()
 
     printf("\n1. Liet ke danh sach co bao nhieu nhan vien nu co luong lon hon 10 trieu.");
     printf("\n2. Xoa 1 nhan vien co ma so bang x, x nhap tu ban phim.");
-    printf("\n3. Them nhan vien moi co luong hon 7 trieu.");
+    printf("\n3. Them nhan vien moi co luong hon 7 trieu."); 
     int nhap;
     do
     {
@@ -125,17 +125,17 @@ void addTailSList(Slist &sl, Node *p)
         sl.tail = p;
     }
 }
-void deleteHeadSlist(Slist &l)
+void deleteHeadSlist(Slist &sl)
 {
-    if (l.head  == NULL)
+    if(sl.head == NULL)
     {
         return;
     }
-    else
-    {
-        Node *temp = l.head;
-        l.head= l.head->next;
-        temp->next = NULL;
+
+    else {
+        Node *temp = sl.head;
+        sl.head = sl.head -> next;
+        temp ->next = NULL;
         delete temp;
     }
 }

@@ -1,58 +1,75 @@
-#include "iostream.h"
-using namespace std;
+#include "stdio.h"
+#include "stdbool.h"
 
-const int maxn = 1001;
+#define MAX 100
 
-struct canh{
-	int x, y, w;
+#define V 6
+
+int P[V][V] = {
+	// {0, 9, 75, 0, 0},
+	// {9, 0, 95, 19, 42},
+	// {75, 95, 0, 51, 66},
+	// {0, 19, 51, 0, 31},
+	// {0, 42, 66, 31, 0}
+
+	// {0,4,2,5,0,1},
+	// {4,0,3,8,7,0},
+	// {2,3,0,9,0,8},
+	// {5,8,9,0,10,0},
+	// {0,7,0,10,0},
+	// {1,0,8,0,0,0}
+
+	// {0,1,0,0,6},
+	// {1,0,8,4,1},
+	// {0,8,0,6,0},
+	// {0,4,6,0,3},
+	// {6,4,0,3,0}
 };
 
-int n, m; //n : so luong dinh, m so luong canh
-vector<pair<int,int>> adj[maxn];
-bool used[maxn]; // used[i] = true : i thuoc tap V(MST), used[i] = false : i thuoc tap v
+int main()
+{
+	int no_edge;	// số cạnh
+	// Mảng theo dõi đỉnh đã chọn sẽ trở true hay là false
+	int selected[V];
+	// Đặt memset ban đầu dã chọn
+	// memset(selected,false,sizeof(selected));
+	// Đặt số cạnh bằng 0
+	no_edge = 0;
+	// Số lượng đỉnh trong cây khung nhỏ nhất sẽ
+	// luôn nhỏ hơn (V - 1) => V là sô đỉnh trong đồ thị
 
-void nhap(){
-	cin >> n >> m;
-	for(int i = 0; i < m; i++){
-		int x, y, w; cin >> x >> y >> w;
-		adj[x].push_back({y, w});
-		adj[y].push_back({x, w});
-	}
-	memset(used, false, sizeof(used));
-}
+	selected[0] = true;
+	int x;	// số dòng
+	int y;	// số cột
 
-void prim(int u){
-	vector<canh> MST; // cay khung
-	int d = 0; // chieu dai cay khung
-	used[u] = true; // dua dinh u vao tap V(MST)
-	while(MST.size() < n - 1){
-		//e = (x, y) : Cạnh ngắn nhất có x thuộc V và y thuộc V(MST)
-		int min_w = INT_MAX;
-		int X, Y; // luu 2 dinh cua canh e
-		for(int i = 1; i <= n; i++){
-			//neu dinh i thuoc tap V(MST)
-			if(used[i]){
-				//duyet danh sach ke cua dinh i
-				for(pair<int,int> it : adj[i]){
-					int j = it.first, trongso = it.second;
-					if(!used[j] && trongso < min_w){
-						min_w = trongso;
-						X = j; Y = i;
+	// In cạnh và độ dài
+	printf("Canh : Do dai\n");
+	while (no_edge < V - 1)
+	// Với mọi đỉnh trong tập S, tìm tất cả các đỉnh kế nhau
+	// tính khoảng cách từ đỉnh đã chọn ở bước 1
+	// nếu đỉnh nằm trong tập S thì loại bỏ nếu không
+	// thì chọn đỉnh khác gần đỉnh đã chọn ở bước 1
+	{
+		int min = MAX;
+		x = 0;
+		y = 0;
+		for (int i = 0; i < V; i++)
+		{
+			if(selected[i]){
+				for (int j = 0; j < V; j++){
+					if (!selected[j] && P[i][j]){
+						if(min > P[i][j]){
+							min = P[i][j];
+							x = i;
+							y = j;
+						}
 					}
 				}
 			}
 		}
-		MST.push_back({X, Y, min_w});
-		d += min_w;
-		used[X] = true; // cho dinh X vao V(MST), loai X khoi tap V
+		printf("%d -> %d : %d\n", x , y , P[x][y]);
+		selected[y]= true;
+		no_edge++;
 	}
-	cout << d << endl;
-	for(canh e : MST){
-		cout << e.x <<  " " << e.y << " " << e.w << endl;
-	}
-}
-
-int main(){
-	nhap();
-	prim(4);
+	return 0;
 }
