@@ -32,11 +32,16 @@ void infixToPrefix(char infix[], char prefix[]);
     // Main 
 int main()
 {
-    char infix[MAX] = "(P+(Q*R)/(S-T))";
+    char infix[MAX] = "(4-2)*2+2";
+    daoChuoi(infix);
     char prefix[MAX];
-
+    char postfix[MAX];
+    
     infixToPrefix(infix, prefix);
-    printf("%s\n",prefix);
+    printf("\nInfix sang Prefix : %s\n",prefix);
+    infixToPostfix(infix,postfix);
+    printf("Infix sang Postfix (dao chuoi): %s ", postfix);
+    daoChuoi(postfix);
     system("pause");
     return 0;
 }
@@ -157,11 +162,12 @@ void thayTheNgoac(char s[])
 }
 void infixToPrefix(char infix[], char prefix[])
 {
+	printf("Chuoi infix ban dau %s\n", infix);
     daoChuoi(infix);
-    printf("%s\n",infix);
+    printf("Ket qua dao chuoi infix %s\n",infix);
     thayTheNgoac(infix);
-    printf("%s\n",infix);
+    printf("Ket qua thay the ngoac infix %s\n",infix);
     infixToPostfix(infix,prefix);
-    printf("%s\n",infix);
+    printf("Ket qua infix sang postfix : %s\n",prefix);
     daoChuoi(prefix);
 }

@@ -17,3 +17,9 @@ prim(u){
         Bước 3 : Trả về kết quả
         "Trả về độ dài d và cây khung MST"
 }
+T = ∅;
+U = { 1 };
+while (U ≠ V)
+    let (u, v) be the lowest cost edge such that u ∈ U and v ∈ V - U;
+    T = T ∪ {(u, v)}
+    U = U ∪ {v}
