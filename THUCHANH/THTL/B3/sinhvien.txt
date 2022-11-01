@@ -1,0 +1,6 @@
+5
+1 DangHuy 9 10 10
+2 Zohan 8 9 10
+3 Zohanubis 9 9 9
+4 Anubis 5 5 9
+5 Huy 9 6 7

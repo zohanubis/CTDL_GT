@@ -35,7 +35,7 @@ int remove(Queue &q);
 void showQueue(Queue q);
 void screenMessage(Queue &q, int b[50], int n, int k);
 int daoNguoc(Queue q, int a[50]);
-
+// main 
 int main()
 {
     int n, b[50], k;
