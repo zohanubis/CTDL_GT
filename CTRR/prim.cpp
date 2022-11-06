@@ -19,24 +19,24 @@ int P[V][V] = {
 	// {0,7,0,10,0},
 	// {1,0,8,0,0,0}
 
-	// {0,1,0,0,6},
-	// {1,0,8,4,1},
-	// {0,8,0,6,0},
-	// {0,4,6,0,3},
-	// {6,4,0,3,0}
+	{0,1,0,0,6},
+	{1,0,8,4,1},
+	{0,8,0,6,0},
+	{0,4,6,0,3},
+	{6,4,0,3,0}
 };
 
 int main()
 {
 	int no_edge;	// số cạnh
 	// Mảng theo dõi đỉnh đã chọn sẽ trở true hay là false
-	int selected[V];
+	int selected[V]; // Tập w(s)
 	// Đặt memset ban đầu dã chọn
 	// memset(selected,false,sizeof(selected));
 	// Đặt số cạnh bằng 0
 	no_edge = 0;
 	// Số lượng đỉnh trong cây khung nhỏ nhất sẽ
-	// luôn nhỏ hơn (V - 1) => V là sô đỉnh trong đồ thị
+	// luôn nhỏ hơn (V - 1) => V là số đỉnh trong đồ thị
 
 	selected[0] = true;
 	int x;	// số dòng
