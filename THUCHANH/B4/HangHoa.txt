@@ -1,0 +1,4 @@
+3
+HH01 QuanAo VND 20
+HH02 ThucAn VND 50
+HH03 XeMay VND 10
