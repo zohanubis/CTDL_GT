@@ -1,0 +1,8 @@
+001 Nguyen Van Anh CNTT 5.5 7 8.5
+002 Nguyen Thanh Hưng CNTT 8.5 9 7.5
+001 Mai Tuấn Anh CNTP 6 7 8
+001 Thai Van Hùng QTKD 8 9 7.5
+001 Ngô Thi Thu Huong CNTT 6 8 9
+001 Tran Mai Thao QTKD 8 7 10
+001 Nguyen Hoai An CNTP 6 5 3
+001 Pham Thanh Thuy CNTP 2 6 3
