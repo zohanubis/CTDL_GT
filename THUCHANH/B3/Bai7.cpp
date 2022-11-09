@@ -31,7 +31,7 @@ int computePostfix(char postfix[]);
 int main(){
 	char infix[MAXSIZE];
 	char postfix[MAXSIZE];
-	printf("Nhap chuoi trung to: ");gets(infix);
+	printf("Nhap chuoi trung to: ");gets_s(infix);
 	infixToPostfix(infix,postfix);
 	printf("\n\tChuoi sau khi chuyen tu trung to sang hau to: %s",postfix);
 	printf("\n\tGia tri cua chuoi la: %d",computePostfix(postfix));
