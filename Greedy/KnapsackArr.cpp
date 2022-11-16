@@ -5,6 +5,7 @@ void printTable(float a[][MAX], int n, int m, float w);
 void tinhDonGia(float a[][50], int &n, int &m, float w );
 void sortTable(float a[][MAX], int n, int m, float w);
 void select(float a[][MAX], int n, int m, float w);
+
 int main()
 {
     float a[MAX][MAX],w;
