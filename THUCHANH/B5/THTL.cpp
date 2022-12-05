@@ -1,6 +1,8 @@
-    #include "stdio.h"
+#define _CRT_SECURE_NO_WARNINGS
+#include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
+#include"iostream"
 struct TNode{
     int info;
     TNode *left;
@@ -24,7 +26,7 @@ void traverseLRN(TNode *root);
 int countNodeDuong(TNode *root);
 int countNodeAm(TNode *root);
 int countNutLa(TNode *root);
-TNode *findNodeReplace(TNode *&p);
+TNode *findTNodeReplace(TNode *&p);
 int deleteTNodeX(TNode *&root, int x);
 int demNodeTrongDoanAB(TNode *root , int a, int b);
 void xuatNodeGiamDanTrongDoangAB(TNode *root, int a, int b);
@@ -220,9 +222,8 @@ int countNutLa(TNode *root)
         return a + b + 1;
     }
     return a + b;
-    
 }
-TNode *findNodeReplace(TNode *&p)
+TNode *findTNodeReplace(TNode *&p)
 {
     TNode *f = p;
     TNode *q = p->right;
@@ -242,37 +243,33 @@ TNode *findNodeReplace(TNode *&p)
 int deleteTNodeX(TNode *&root, int x)
 {
     if (root == NULL)
-    {
-        return 0;
-    }
-    if (root -> info > x )
-    {
-        return deleteTNodeX(root->left,x);
-    }else{
-        if (root->info < x)
-        {
-            return deleteTNodeX(root->right,x);
-        }
-        else{
-            TNode *p = root;
-            if (root->left == NULL)
-            {
-                root = root->right;
-                delete p;
-            }
-            else{
-                if (root->right == NULL)
-                {
-                    root = root->left;
-                    delete p;
-                }
-                else{
-                    TNode *q = findNodeReplace(p);
-                    delete p;
-                }
-            }
-        }
-    }
+		return 0;
+	if (root->info > x)
+		return deleteTNodeX(root->left, x);
+	else
+		if (root->info < x)
+			return deleteTNodeX(root->right, x);
+		else
+		{
+			TNode* p = root;
+			if (root->left == NULL) //cay con khong co nhanh trai
+			{
+				root = root->right;
+				delete p;
+			}
+			else
+				if (root->right == NULL)//cay con khong co nhanh phai
+			{
+				root = root->left;
+				delete p;
+			}
+			else
+			{
+					TNode* q = findTNodeReplace(p);
+					delete p;
+			}
+
+		}
 }
 int demNodeTrongDoanAB(TNode *root , int a, int b)
 {
