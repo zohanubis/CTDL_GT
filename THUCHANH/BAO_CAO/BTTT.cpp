@@ -119,16 +119,11 @@ void docFile1(BTree &bt, char fileName[])
 	fclose(f);
 }
 int soAm(int n) {
-
-
 	int flag = 0;
-
 	if (n < 0) flag = -1;
 	return flag;
 }
 int soDuong(int n) {
-
-
 	int flag = 0;
 	if (n > 0) flag = 1;
 	else if (n < 0) flag = -1;
@@ -139,8 +134,7 @@ int SumAm(TNode* root)
 	int KQ = 0;
 	if (!root)
 		return 0;
-	else
-	{
+	else{
 		if (root->Info < 0)
 			KQ += root->Info;
 		KQ += SumAm(root->Left);
@@ -168,8 +162,7 @@ int countD(TNode* root)
 	int KQ = 0;
 	if (!root)
 		return 0;
-	else
-	{
+	else{
 		if (soDuong(root->Info))
 			KQ++;
 		KQ += countD(root->Left);
@@ -396,7 +389,7 @@ int maxDistance(TNode* root, int x)
 	while (minleft->Left != NULL)
 		minleft = minleft->Left;
 	TNode* maxRight = root;
-	while (maxRight->Right != NULL) //TÃ¬m nÃºt pháº£i nháº¥t
+	while (maxRight->Right != NULL)
 		maxRight = maxRight->Right;
 	int dis1 = abs(x - minleft->Info);
 	int dis2 = abs(x - maxRight->Info);
@@ -413,7 +406,7 @@ void LNR(TNode* root)
 	printf("%4d", root->Info);
 	LNR(root->Right);
 }
-void BreadthNLR(TNode *root)
+void BreadthNLR(TNode *root) // chiều rộng của cây
 {
 	if(root==NULL)
 		return;
@@ -429,9 +422,7 @@ void BreadthNLR(TNode *root)
 			q.push(p->Left);
 		if(p->Right!=NULL)
 			q.push(p->Right);
-
 	}
-
 }
 void DepthLNR(TNode *root)
 {
@@ -468,7 +459,7 @@ void DepthLNR(TNode *root)
 		}
 	}
 }
-void DepthNLR(TNode *root)
+void DepthNLR(TNode *root)	// chiều cao của cây
 {
 	if(root==NULL)
 		return;
@@ -568,13 +559,11 @@ void Process()
 			cout << endl;
 			break;
 		case 7:
-
 			cout << "so nut la cua cay: " << demLa(bt.Root) << endl;
 			cout << "\n";
 			break;
 		case 8:
 			XuatKqKiemTra(t);
-
 			cout << "\n";
 			break;
 		case 9:
