@@ -204,7 +204,6 @@ void fixViolation(BTNode*& root, BTNode*& p)
 				}
 				//trường hợp 3: p là node con phải cua3 nod cha nó, thực hiện xoay trái
 				RotateLeft(root, pGrandParent);
-				
 				p = pParent;
 			}
 		}
