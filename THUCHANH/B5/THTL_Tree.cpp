@@ -217,6 +217,7 @@ int countNutLa(TNode* t)
 		return a + b + 1;
 	return a + b;
 }
+
 TNode* findTNodeReplace(TNode*& p)
 {
 	TNode* f = p;

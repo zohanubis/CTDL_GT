@@ -38,6 +38,7 @@ int findMaxInSList(SList sl);
 int findMinInSList(SList sl);
 int countNodeGreaterThanDoubleAfterNode(SList sl);
 void splitSListIntoEvenListAndOddList(SList sl, SList &sl1, SList &sl2);
+int demSoDuongChiaHetCho5(SList sl);
 int main(){
 	menu();
 	return 0;
@@ -139,6 +140,10 @@ void menu(){
 				printf("\n\tSList2: ");
 				printList(sl2);
 				break;
+			}
+			case 11:{
+				SList sl;
+				printf("So luong so co chia het cho 5 : %d", demSoDuongChiaHetCho5(sl));
 			}
 			default:{
 				if(nhap != 0){
@@ -323,6 +328,7 @@ int checkPrimNumber(int n){
 		return 0;
 	}
 }
+
 int countPrimNumberInSList(SList sl){
 	Node *temp = sl.head;
 	int count = 0;
@@ -333,6 +339,31 @@ int countPrimNumberInSList(SList sl){
 		temp = temp->next;
 	}
 	return count;
+}
+int checkDuongVaChia5(int n){
+	int count = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if(n % 5 == 0 && n > 0)
+			count++;
+	}
+	if(count == 0)
+		return 1;
+	else
+		return 0;
+	
+}
+int demSoDuongChiaHetCho5(SList sl){
+	Node *temp = sl.head;
+	int count = 0;
+	if(!temp) return 0;
+	while(temp){
+		if(temp->info % 5 == 0){
+			count++;
+			temp = temp -> next;
+		}
+		return count;
+	}
 }
 int checkSquareNumber(int n){
 	for(int i = 1; i <= n/2; i++){
